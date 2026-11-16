@@ -1,0 +1,75 @@
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+    var administracion = controller == "Administracion" || (controller == "Productos" && action is not ("Index" or "Marca"));
+    var esAdmin = User.IsInRole("Administrador");
+    var marcaCatalogo = ViewData["MarcaCatalogo"] as MarcaTienda;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#171d25" />
+    <title>@ViewData["Title"] · NEXUS STORE</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/tienda.css" asp-append-version="true" />
+    @if (marcaCatalogo != null)
+    {
+        <link rel="stylesheet" href="~/css/catalogo-marcas.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/efectos-marcas.css" asp-append-version="true" />
+    }
+</head>
+<body class="@(marcaCatalogo == null ? null : $"catalogo-marca tema-{marcaCatalogo.Id}")">
+    <header class="topbar no-print">
+        <div class="header-inner">
+            <a class="brand" asp-controller="Home" asp-action="Index">
+                <span class="brand-symbol" aria-hidden="true">◈</span><span>NEXUS<span class="brand-light">STORE</span></span>
+            </a>
+            <nav class="toplinks" aria-label="Navegación principal">
+                <a class="@(controller == "Home" ? "selected" : "")" asp-controller="Home" asp-action="Index">Inicio</a>
+                <a class="@(controller == "Productos" && !administracion ? "selected" : "")" asp-controller="Productos" asp-action="Index">Catálogo</a>
+                <a class="@(controller == "Ventas" ? "selected" : "")" asp-controller="Ventas" asp-action="Index">Ventas</a>
+                <a class="@(administracion ? "selected" : "")" asp-controller="Productos" asp-action="Administrar">Administrador</a>
+            </nav>
+            <div class="header-actions"><a class="header-sale" asp-controller="Ventas" asp-action="Crear">+ Nueva venta</a></div>
+        </div>
+    </header>
+    <div class="workspace">
+        <aside class="sidebar no-print">
+            <span class="sidebar-title">TIENDA</span>
+            <a class="sidebar-link @(controller == "Productos" && action == "Index" ? "active" : "")" asp-controller="Productos" asp-action="Index">Todos los productos</a>
+            @foreach (var marca in MarcaTienda.Todas)
+            {
+                <a class="sidebar-link marca-@marca.Id @(string.Equals(ViewContext.RouteData.Values["marca"]?.ToString(), marca.Id, StringComparison.OrdinalIgnoreCase) ? "active" : "")"
+                   asp-controller="Productos" asp-action="Marca" asp-route-marca="@marca.Id"><span class="brand-dot" aria-hidden="true"></span>@marca.Nombre</a>
+            }
+            @if (esAdmin)
+            {
+                <span class="sidebar-title second">ADMINISTRACIÓN</span>
+                <a class="sidebar-link" asp-controller="Productos" asp-action="Administrar">Inventario</a>
+                <a class="sidebar-link" asp-controller="Productos" asp-action="Crear">Registrar producto</a>
+            }
+        </aside>
+        <div class="content-column">
+            <main class="page-content">
+                @if (TempData["Ok"] is string mensaje)
+                {
+                    <div class="alert success" role="status">@mensaje</div>
+                }
+                @RenderBody()
+            </main>
+            <footer class="footer no-print">
+                <span>Nexus Store</span><span>Córdobas (NIO) · Dólares estadounidenses (USD)</span>
+                @if (esAdmin)
+                {
+                    <form asp-controller="Administracion" asp-action="Salir" method="post">
+                        <button class="logout-link" type="submit">Cerrar sesión</button>
+                    </form>
+                }
+            </footer>
+        </div>
+    </div>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

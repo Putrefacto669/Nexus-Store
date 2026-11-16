@@ -1,0 +1,46 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Mouse inal\u00E1mbrico",
+    "Marca": "",
+    "Estado": 0,
+    "Categoria": 0,
+    "Precio": 350,
+    "Stock": 20,
+    "Disponible": true,
+    "Foto": null
+  },
+  {
+    "Id": 2,
+    "Nombre": "Teclado USB",
+    "Marca": "",
+    "Estado": 0,
+    "Categoria": 0,
+    "Precio": 520,
+    "Stock": 15,
+    "Disponible": true,
+    "Foto": null
+  },
+  {
+    "Id": 3,
+    "Nombre": "Memoria USB 32 GB",
+    "Marca": "",
+    "Estado": 0,
+    "Categoria": 0,
+    "Precio": 280,
+    "Stock": 30,
+    "Disponible": true,
+    "Foto": null
+  },
+  {
+    "Id": 4,
+    "Nombre": "Playstation VITA",
+    "Marca": "PlayStation",
+    "Estado": 1,
+    "Categoria": 3,
+    "Precio": 7200,
+    "Stock": 3,
+    "Disponible": true,
+    "Foto": "3dd4a9dd0e554e5ca28ac35cc0d0f913.jpg"
+  }
+]

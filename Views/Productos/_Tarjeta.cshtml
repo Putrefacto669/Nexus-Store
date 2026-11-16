@@ -1,0 +1,22 @@
+@model Producto
+<article class="product-card store-product" data-product="@Model.Nombre @Model.Marca @Model.Categoria">
+    <div class="product-visual tone-@(Model.Id % 6)">
+        @if (Model.Foto is { } foto)
+        {
+            <img src="@Url.Action("Foto", "Productos", new { nombre = foto })" alt="@Model.Nombre" loading="lazy" decoding="async" />
+        }
+        else
+        {
+            <span class="photo-placeholder">Sin foto</span>
+        }
+    </div>
+    <div class="product-info">
+        <p class="product-category">@Model.Categoria · @(string.IsNullOrWhiteSpace(Model.Marca) ? "Marca sin especificar" : Model.Marca)</p>
+        <h3 class="product-name">@Model.Nombre</h3>
+        <div class="product-meta"><span>@Model.Estado</span><span>@Model.Stock en stock</span></div>
+        <div class="product-bottom">
+            <div class="dual-price"><strong>@Monedas.Cordobas(Model.Precio)</strong><small>@Monedas.Dolares(Model.Precio)</small></div>
+            <span class="chip @(!Model.EnVenta ? "low" : "")">@(Model.EnVenta ? "Disponible" : Model.Stock == 0 ? "Agotado" : "No disponible")</span>
+        </div>
+    </div>
+</article>

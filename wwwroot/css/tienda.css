@@ -1,0 +1,157 @@
+/* Catálogo y administración de Nexus Store */
+.marca-nintendo { --accent: #ff6570; }
+.marca-playstation { --accent: #72b9ff; }
+.marca-xbox { --accent: #8ade78; }
+.marca-nvidia { --accent: #b8e456; }
+
+.topbar { height: 76px; background: #101720; }
+.header-inner { gap: clamp(24px, 4vw, 60px); }
+.brand { font-size: 19px; }
+.brand-symbol { width: 38px; height: 38px; font-size: 26px; border-width: 1px; }
+.toplinks { gap: clamp(14px, 3vw, 32px); }
+.toplinks a.selected::after { bottom: 12px; }
+.header-sale { border-radius: 4px; background: #283d50; color: #f0f8ff; }
+.header-sale:hover { background: #35536d; }
+.workspace { min-height: calc(100vh - 76px); grid-template-columns: 186px minmax(0, 1fr); }
+.page-content { min-height: calc(100vh - 150px); }
+.sidebar-link .brand-dot, .brand-dot {
+    display: inline-block;
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+.sidebar-link.active { border-left-color: var(--accent, #66c0f4); }
+.logout-link { padding: 0; color: #b0d4ed; border: 0; background: transparent; font: inherit; }
+
+.store-front {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: grid;
+    align-items: center;
+    min-height: 350px;
+    padding: clamp(28px, 5vw, 64px);
+    border: 1px solid #385a75;
+    background: radial-gradient(ellipse at 89% 45%, #294b70, transparent 58%), #101d2c;
+}
+.store-front-copy { position: relative; z-index: 1; }
+.store-front h1 {
+    margin: 0;
+    color: white;
+    font-size: clamp(2.2rem, 5.1vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -.055em;
+    overflow-wrap: anywhere;
+}
+.store-front p:not(.eyebrow) { margin: 18px 0 24px; color: #c6d7e4; }
+.store-front .eyebrow { color: #9fcefa; margin: 0 0 16px; }
+.store-front-art {
+    position: absolute;
+    right: 4%;
+    top: 50%;
+    width: min(28vw, 275px);
+    aspect-ratio: 1;
+    transform: translateY(-50%) rotate(-15deg);
+    border: 1px solid #78bafb70;
+    background: radial-gradient(ellipse, #235071, #132434);
+    border-radius: 26%;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 0 19px #7db4ed10, 0 0 0 44px #7db4ed0a, 0 0 0 77px #7db4ed06;
+}
+.store-front-art span { line-height: 1; color: #a2d7ff; font-size: clamp(72px, 11vw, 146px); }
+.brand-directory { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.brand-tile {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    background: #151e29;
+    border: 1px solid #3a5166;
+    border-radius: 6px;
+    color: #eef5fc;
+}
+.brand-tile:hover, .brand-tile:focus-visible { border-color: var(--accent); }
+.brand-tile img, .brand-tile .nintendo-type { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.brand-tile .nintendo-type { display: grid; place-items: center; }
+.brand-tile .nintendo-type span { font-size: clamp(1rem, 2.1vw, 1.8rem); }
+.brand-tile-caption { display: flex; justify-content: space-between; padding: 12px 15px; gap: 4px; font-size: .9rem; }
+.brand-tile-caption span { color: var(--accent); }
+.stat strong { white-space: normal; overflow-wrap: anywhere; }
+
+.brand-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 19px; }
+.brand-nav a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 12px;
+    border: 1px solid #456079;
+    border-radius: 5px;
+    color: #cedce7;
+    background: #121f2d;
+    font-size: .84rem;
+}
+.brand-nav a[aria-current="page"], .brand-nav a:hover { color: white; border-color: var(--accent, #70bded); }
+
+.nintendo-type {
+    background-color: #e60012;
+    background-image: radial-gradient(#ffffff26 1px, transparent 1px);
+    background-size: 13px 13px;
+    color: white;
+}
+.nintendo-type span {
+    display: inline-block;
+    border: .13em solid white;
+    border-radius: 999px;
+    padding: .04em .33em .13em;
+    font-weight: 800;
+    letter-spacing: -.055em;
+}
+.catalog-heading { margin-top: 6px; }
+.catalog-heading h1 { font-weight: 650; margin-top: 0; }
+.catalog-shelf { border-top: 1px solid var(--accent, #3b5770); scroll-margin: 16px; }
+.catalog-tools { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin: 16px 0; }
+.catalog-tools h2 { color: #f4f7fb; font-size: 1.3rem; margin: 0 0 3px; }
+.catalog-shelf > .empty-state { margin: 12px 0 0; border: 1px dashed #456078; background: #121f2c; }
+.store-product { border: 1px solid #375168; border-radius: 6px; overflow: hidden; }
+.store-product .product-visual { height: auto; aspect-ratio: 16 / 10; }
+.store-product .product-visual img { position: absolute; width: 100%; height: 100%; object-fit: contain; background: #101924; }
+.store-product .product-name { margin: 4px 0 0; min-height: 0; }
+.product-category { margin: 0; color: #aec8dc; font-size: .73rem; overflow-wrap: anywhere; }
+.photo-placeholder { position: relative; color: #cedde8; font-size: .8rem; }
+.dual-price { display: grid; gap: 3px; white-space: nowrap; }
+.dual-price small { color: #afc9dd; font-size: .8rem; }
+.totals { margin-left: 12px; text-align: right; }
+
+.product-form { max-width: 740px; }
+.login-panel { max-width: 460px; }
+.field label { font-size: .84rem; letter-spacing: 0; }
+.field .validation { margin: 0; }
+.field .validation:empty, .validation-summary-valid { display: none; }
+.form-output { display: block; padding: 11px 12px; border: 1px solid #375269; color: #c0dcf3; background: #182e40; }
+.form-photo { width: 156px; height: 100px; object-fit: contain; border: 1px solid #45657c; background: #101924; }
+.availability-field label { display: flex; align-items: center; gap: 9px; width: fit-content; cursor: pointer; }
+.availability-field input { width: 17px; height: 17px; margin: 0; accent-color: #70bdf0; }
+.inventory-table { min-width: 740px; }
+.inventory-item { display: flex; align-items: center; gap: 10px; min-width: 148px; overflow-wrap: anywhere; }
+.inventory-item img { width: 54px; height: 44px; object-fit: contain; border: 1px solid #435d71; }
+.inventory-item small { display: block; margin-top: 4px; color: #9bb0c4; }
+
+@media (max-width: 850px) {
+    .topbar { height: auto; }
+    .toplinks a.selected::after { bottom: 0; }
+    .store-front-art { opacity: .58; }
+}
+@media (max-width: 575px) {
+    .toplinks { gap: 15px; }
+    .toplinks a { font-size: .77rem; }
+    .brand-directory { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .store-front { min-height: 290px; }
+    .store-front-art { opacity: .22; width: 150px; right: 9%; }
+    .catalog-tools { align-items: stretch; flex-direction: column; gap: 8px; }
+    .header-sale { padding-inline: 9px; }
+}
+@media print {
+    .dual-price small { color: #222; }
+}

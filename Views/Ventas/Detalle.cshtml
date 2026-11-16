@@ -1,0 +1,7 @@
+@model Venta
+@{ ViewData["Title"] = "Venta #" + Model.Id; }
+<div class="heading"><div><div class="eyebrow">COMPROBANTE</div><h1>Venta #@Model.Id</h1><p>@Model.FechaUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm") · @Model.Cliente</p></div><button class="btn btn-outline no-print" onclick="window.print()">IMPRIMIR RECIBO</button></div>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Producto</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th></tr></thead><tbody>
+@foreach (var d in Model.Detalles) { <tr><td>@d.ProductoNombre</td><td>@d.Cantidad</td><td><div class="dual-price">@Monedas.Cordobas(d.PrecioUnitario)<small>@Monedas.Dolares(d.PrecioUnitario, Model.CordobasPorDolar)</small></div></td><td><div class="dual-price">@Monedas.Cordobas(d.Subtotal)<small>@Monedas.Dolares(d.Subtotal, Model.CordobasPorDolar)</small></div></td></tr> }
+</tbody></table></div><div class="grand-total">TOTAL <div class="dual-price totals"><strong>@Monedas.Cordobas(Model.Total)</strong><small>@Monedas.Dolares(Model.Total, Model.CordobasPorDolar)</small></div></div>
+<div class="form-actions no-print"><a class="btn btn-outline" asp-action="Index">Volver a ventas</a><a class="btn btn-primary" asp-action="Crear">Otra venta</a></div></section>

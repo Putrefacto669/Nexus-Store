@@ -1,0 +1,11 @@
+@{
+    var activa = ViewContext.RouteData.Values["marca"]?.ToString();
+}
+<nav class="brand-nav" aria-label="Marcas del catálogo">
+    <a asp-controller="Productos" asp-action="Index" aria-current="@(activa == null ? "page" : null)">Todas</a>
+    @foreach (var marca in MarcaTienda.Todas)
+    {
+        <a class="marca-@marca.Id" asp-controller="Productos" asp-action="Marca" asp-route-marca="@marca.Id"
+           aria-current="@(string.Equals(activa, marca.Id, StringComparison.OrdinalIgnoreCase) ? "page" : null)"><span class="brand-dot" aria-hidden="true"></span>@marca.Nombre</a>
+    }
+</nav>

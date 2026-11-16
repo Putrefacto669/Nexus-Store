@@ -1,0 +1,62 @@
+@model NuevaVentaViewModel
+@using System.Text.Json
+@{ ViewData["Title"] = "Nueva venta"; var productos = (List<Producto>)ViewBag.Productos; }
+<div class="heading"><div><div class="eyebrow">PUNTO DE VENTA</div><h1>Registrar venta</h1><p>Seleccioná artículos para preparar una nueva transacción.</p></div></div>
+<form asp-action="Crear" method="post" id="saleForm">
+<div asp-validation-summary="All" class="validation"></div>
+<div class="sale-grid"><div class="panel"><div class="eyebrow">01 / SELECCIÓN</div><h2>Elegir artículos</h2><div class="field"><label for="cliente">NOMBRE DEL CLIENTE</label><input id="cliente" name="Cliente" maxlength="120" value="@Model.Cliente" placeholder="Consumidor final (opcional)" /></div>
+<div class="field"><label for="productSelect">PRODUCTO DISPONIBLE</label><select id="productSelect"><option value="">Elegí un producto</option>@foreach(var p in productos){<option value="@p.Id">@p.Nombre · @Monedas.Cordobas(p.Precio) · @Monedas.Dolares(p.Precio) · Stock: @p.Stock</option>}</select></div>
+<button type="button" class="btn btn-outline" id="addBtn">+ AGREGAR AL CARRITO</button>
+<p class="hint">Los precios se validan nuevamente en el servidor al guardar la venta.</p></div>
+<div class="panel checkout-panel"><div class="eyebrow">02 / RESUMEN</div><h2>Tu carrito</h2><div id="cart" class="cart"></div><div class="grand-total">TOTAL <div class="dual-price totals"><strong id="total">C$ 0.00</strong><small id="totalUsd">US$ 0.00</small></div></div><div id="hiddenLines"></div><button type="submit" id="submitBtn" class="btn btn-primary full" disabled>CONFIRMAR COMPRA →</button></div></div>
+</form>
+<script type="application/json" id="productData" data-tasa="@Monedas.CordobasPorDolar">@Html.Raw(JsonSerializer.Serialize(productos.Select(p => new { id = p.Id, nombre = p.Nombre, precio = p.Precio, stock = p.Stock })))</script>
+@section Scripts {
+<script>
+(() => {
+  const data = document.getElementById('productData');
+  const productos = JSON.parse(data.textContent);
+  const tasa = Number(data.dataset.tasa);
+  const carrito = new Map();
+  const select = document.getElementById('productSelect');
+  const cart = document.getElementById('cart');
+  const hidden = document.getElementById('hiddenLines');
+  const total = document.getElementById('total');
+  const totalUsd = document.getElementById('totalUsd');
+  const submit = document.getElementById('submitBtn');
+  const formato = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const money = n => 'C$ ' + formato.format(n);
+  const dollars = n => 'US$ ' + formato.format(n / tasa);
+  function render() {
+    cart.replaceChildren(); hidden.replaceChildren();
+    let importe = 0;
+    if (!carrito.size) { const p=document.createElement('p'); p.className='muted'; p.textContent='El carrito está vacío.'; cart.append(p); }
+    for (const [id, qty] of carrito) {
+      const p=productos.find(x=>x.id===id); if(!p) continue;
+      importe += p.precio*qty;
+      const line=document.createElement('div');line.className='cart-line';
+      const info=document.createElement('div');
+      const name=document.createElement('strong');name.textContent=p.nombre;
+      const price=document.createElement('small');price.textContent=money(p.precio)+' · '+dollars(p.precio)+' · Máx. '+p.stock;
+      info.append(name,price);
+      const input=document.createElement('input');input.type='number';input.min='1';input.max=String(p.stock);input.value=String(qty);input.setAttribute('aria-label','Cantidad de '+p.nombre);
+      input.addEventListener('change',()=>{const n=Number(input.value); if(!Number.isInteger(n)||n<1||n>p.stock){alert('Cantidad inválida o stock insuficiente.');input.value=String(qty);return;}carrito.set(id,n);render();});
+      const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.textContent='×';remove.title='Quitar';remove.addEventListener('click',()=>{carrito.delete(id);render();});
+      line.append(info,input,remove);cart.append(line);
+      const idx=hidden.children.length/2;
+      for(const [key,value] of [['ProductoId',id],['Cantidad',qty]]){const h=document.createElement('input');h.type='hidden';h.name=`Lineas[${idx}].${key}`;h.value=String(value);hidden.append(h);}
+    }
+    total.textContent=money(importe);
+    totalUsd.textContent=dollars(importe);
+    submit.disabled=carrito.size===0;
+  }
+  document.getElementById('addBtn').addEventListener('click',()=>{
+    const id=Number(select.value), p=productos.find(x=>x.id===id);if(!p)return;
+    const qty=(carrito.get(id)||0)+1;
+    if(qty>p.stock){alert('Stock insuficiente.');return;}
+    carrito.set(id,qty);render();
+  });
+  render();
+})();
+</script>
+}

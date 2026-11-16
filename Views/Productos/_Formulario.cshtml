@@ -1,0 +1,60 @@
+@model Producto
+<div asp-validation-summary="ModelOnly" class="validation"></div>
+<div class="field">
+    <label asp-for="Nombre">Nombre del producto</label>
+    <input asp-for="Nombre" maxlength="80" required />
+    <span asp-validation-for="Nombre" class="validation"></span>
+</div>
+<div class="form-grid">
+    <div class="field">
+        <label asp-for="Marca">Marca</label>
+        <input asp-for="Marca" list="marcas" maxlength="60" required />
+        <datalist id="marcas">
+            @foreach (var marca in MarcaTienda.Todas) { <option value="@marca.Nombre"></option> }
+        </datalist>
+        <span asp-validation-for="Marca" class="validation"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Categoria">Categoría</label>
+        <select asp-for="Categoria" asp-items="Html.GetEnumSelectList<CategoriaProducto>()"></select>
+        <span asp-validation-for="Categoria" class="validation"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Estado">Estado</label>
+        <select asp-for="Estado" asp-items="Html.GetEnumSelectList<EstadoProducto>()"></select>
+        <span asp-validation-for="Estado" class="validation"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Stock">Unidades en stock</label>
+        <input asp-for="Stock" type="number" min="0" max="1000000" required />
+        <span asp-validation-for="Stock" class="validation"></span>
+    </div>
+    <div class="field">
+        <label asp-for="Precio">Precio en córdobas (C$)</label>
+        <input asp-for="Precio" type="number" min="0.01" max="99999999" step="0.01" required />
+        <span asp-validation-for="Precio" class="validation"></span>
+    </div>
+    <div class="field">
+        <label for="precioDolares">Equivalente en dólares</label>
+        <output id="precioDolares" class="form-output" for="Precio" data-tasa="@Monedas.CordobasPorDolar">@Monedas.Dolares(Model.Precio)</output>
+        <small class="muted">Tasa de la tienda · @Monedas.Cordobas(Monedas.CordobasPorDolar) por US$ 1</small>
+    </div>
+</div>
+<div class="field">
+    <label for="fotoProducto">@(Model.Foto == null ? "Foto del producto" : "Reemplazar foto")</label>
+    @if (Model.Foto is { } foto)
+    {
+        <img class="form-photo" src="@Url.Action("Foto", new { nombre = foto })" alt="Foto actual de @Model.Nombre" />
+    }
+    <input type="file" id="fotoProducto" name="fotoProducto" accept="image/jpeg,image/png,image/webp" required="@(Model.Id == 0)" />
+    <small class="muted">JPG, PNG o WebP de hasta 3 MB.</small>
+    @Html.ValidationMessage("fotoProducto", new { @class = "validation" })
+</div>
+<div class="field availability-field">
+    <label><input asp-for="Disponible" /> Disponible para la venta</label>
+    <small class="muted">Para vender el producto, también debe haber stock.</small>
+</div>
+<div class="form-actions">
+    <a class="btn btn-outline" asp-action="Administrar">Cancelar</a>
+    <button type="submit" class="btn btn-primary">Guardar producto</button>
+</div>

@@ -1,0 +1,25 @@
+@model ArteMarca
+@{
+    var imagenRtx = Url.Content($"~/img/franquicias/{Model.Archivo}.webp");
+}
+<details class="rtx-comparison">
+    <summary class="brand-feature">
+        <span class="brand-feature-art"><img src="@imagenRtx" alt="" decoding="async" /></span>
+        <span class="rtx-summary">
+            <strong>@Model.Titulo</strong>
+            <span>Comparar RTX ON y OFF <span class="rtx-arrow" aria-hidden="true">↓</span></span>
+        </span>
+    </summary>
+    <div class="rtx-content">
+        <div class="rtx-stage" data-comparacion-rtx>
+            <img src="@imagenRtx" width="760" height="428" loading="lazy" alt="Cámara de pruebas de Portal con iluminación y reflejos RTX" />
+            <img src="~/img/franquicias/portal-original.webp" width="760" height="428" loading="lazy" class="rtx-original" alt="La misma cámara de pruebas en el Portal original" />
+            <span aria-hidden="true" class="rtx-divider"></span>
+        </div>
+        <div class="rtx-controls" data-control-rtx hidden>
+            <label for="rtxSplit">Desliza para comparar la iluminación</label>
+            <input id="rtxSplit" type="range" min="0" max="100" value="50" />
+        </div>
+        <a class="rtx-source" href="@Model.Fuente">Imágenes de NVIDIA <span aria-hidden="true">↗</span></a>
+    </div>
+</details>

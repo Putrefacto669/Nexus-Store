@@ -1,0 +1,52 @@
+@model CatalogoViewModel
+@{
+    var marca = Model.Marca;
+    ViewData["Title"] = marca?.Nombre ?? "Catálogo";
+    ViewData["MarcaCatalogo"] = marca;
+}
+@if (marca is null)
+{
+    <div class="heading catalog-heading"><div><h1>Catálogo</h1><p>Software, videojuegos, consolas y hardware.</p></div></div>
+    <partial name="_Marcas" />
+}
+else
+{
+    <partial name="_Marcas" />
+    <partial name="_Franquicias" model="marca" />
+}
+<section class="catalog-shelf" id="productos" aria-label="Productos">
+    <div class="catalog-tools">
+        <div>
+            @if (marca != null) { <h2>Productos @marca.Nombre</h2> }
+            <span class="muted">@Model.Productos.Count @(Model.Productos.Count == 1 ? "producto" : "productos")</span>
+        </div>
+        @if (Model.Productos.Count > 0)
+        {
+            <label class="search-box"><span aria-hidden="true">⌕</span><input id="productSearch" type="search" placeholder="Buscar productos" aria-label="Buscar por nombre, marca o categoría" /></label>
+        }
+    </div>
+    @if (Model.Productos.Count == 0)
+    {
+        <div class="empty-state">
+            <strong>@(marca == null ? "El catálogo está vacío" : $"Todavía no hay productos de {marca.Nombre}")</strong>
+            @if (marca != null) { <a class="btn btn-outline" asp-action="Index">Explorar todo el catálogo</a> }
+        </div>
+    }
+    else
+    {
+        <div class="product-grid">
+            @foreach (var producto in Model.Productos)
+            {
+                <partial name="_Tarjeta" model="producto" />
+            }
+        </div>
+        <p id="noSearchResults" class="empty-state" role="status" hidden>No se encontraron productos para esta búsqueda.</p>
+    }
+</section>
+@section Scripts {
+    <script src="~/js/catalogo.js" asp-append-version="true" defer></script>
+    @if (marca != null)
+    {
+        <script src="~/js/efectos-marcas.js" asp-append-version="true" defer></script>
+    }
+}

@@ -1,0 +1,548 @@
+/* Tema de la página completa. Solo se carga en los catálogos por marca. */
+.catalogo-marca {
+    color: var(--texto);
+    background: var(--fondo);
+}
+
+.catalogo-marca .topbar {
+    background: var(--cabecera);
+    border-bottom: 1px solid var(--borde-cabecera, var(--borde));
+}
+
+.catalogo-marca .brand,
+.catalogo-marca .brand-light,
+.catalogo-marca .toplinks a { color: var(--texto-cabecera); }
+
+.catalogo-marca .brand-symbol { border-color: currentColor; }
+.catalogo-marca .toplinks a:hover,
+.catalogo-marca .toplinks a.selected { color: var(--activo-cabecera, var(--principal)); }
+.catalogo-marca .toplinks a.selected::after { background: currentColor; }
+.catalogo-marca .header-sale {
+    background: var(--boton-cabecera, var(--principal));
+    color: var(--texto-boton-cabecera, var(--sobre-principal));
+    border-radius: var(--radio-control);
+}
+.catalogo-marca .header-sale:hover { filter: brightness(1.12); }
+
+.catalogo-marca .sidebar-title,
+.catalogo-marca .footer,
+.catalogo-marca .muted { color: var(--secundario); }
+
+.catalogo-marca .sidebar-link,
+.catalogo-marca .logout-link { color: var(--texto); }
+
+.catalogo-marca .sidebar-link:hover,
+.catalogo-marca .sidebar-link.active {
+    background: var(--seleccion);
+    border-left-color: var(--principal);
+    color: var(--texto);
+}
+
+.catalogo-marca .brand-nav {
+    padding: var(--espacio-nav, 0);
+    border-radius: var(--radio-surface);
+    background: var(--fondo-nav, transparent);
+}
+
+.catalogo-marca .brand-nav a {
+    background: var(--superficie);
+    border-color: var(--borde);
+    border-radius: var(--radio-control);
+    color: var(--texto);
+}
+
+.catalogo-marca .brand-nav a:hover { border-color: var(--principal); }
+.catalogo-marca .brand-nav a[aria-current="page"] {
+    border-color: var(--principal);
+    background: var(--principal);
+    color: var(--sobre-principal);
+    font-weight: 700;
+}
+
+.catalogo-marca .brand-nav a[aria-current="page"] .brand-dot { background: currentColor; }
+.catalogo-marca :focus-visible { outline: 2px solid var(--principal); outline-offset: 3px; }
+.catalogo-marca .topbar :focus-visible { outline-color: var(--texto-cabecera); }
+
+.catalogo-marca .catalog-shelf {
+    padding: clamp(12px, 2.7vw, 30px);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-surface);
+    background: var(--fondo-catalogo, var(--superficie));
+}
+
+.catalogo-marca .catalog-tools {
+    margin: 0 0 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--borde);
+}
+
+.catalogo-marca .catalog-tools h2 {
+    color: var(--texto);
+    font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+    letter-spacing: -.025em;
+}
+
+.catalogo-marca .search-box input {
+    border-color: var(--borde);
+    border-radius: var(--radio-control);
+    background: var(--fondo-input, var(--superficie));
+    color: var(--texto);
+}
+
+.catalogo-marca .search-box input::placeholder,
+.catalogo-marca .search-box span { color: var(--secundario); }
+.catalogo-marca .search-box input:focus { border-color: var(--principal); box-shadow: none; }
+
+.catalogo-marca .store-product {
+    border-color: var(--borde);
+    border-radius: var(--radio-tarjeta, var(--radio-surface));
+    background: var(--superficie);
+    box-shadow: none;
+}
+
+.catalogo-marca .store-product:hover {
+    border-color: var(--principal);
+    box-shadow: var(--sombra-tarjeta, none);
+    transform: translateY(-2px);
+}
+
+.catalogo-marca .store-product .product-visual { background: var(--visual); }
+.catalogo-marca .store-product .product-visual::before { background: none; }
+.catalogo-marca .store-product .product-visual img { background: transparent; }
+.catalogo-marca .store-product .product-name,
+.catalogo-marca .product-bottom strong,
+.catalogo-marca .empty-state strong { color: var(--texto); }
+
+.catalogo-marca .product-category,
+.catalogo-marca .product-meta,
+.catalogo-marca .photo-placeholder,
+.catalogo-marca .dual-price small { color: var(--secundario); }
+
+.catalogo-marca .product-bottom {
+    border-color: var(--borde);
+    flex-wrap: wrap;
+    row-gap: 8px;
+}
+.catalogo-marca .product-bottom strong { overflow-wrap: anywhere; }
+.catalogo-marca .product-bottom .dual-price { white-space: normal; min-width: 0; }
+.catalogo-marca .chip { background: var(--stock-fondo); color: var(--stock-texto); border-radius: var(--radio-control); }
+.catalogo-marca .chip.low { background: var(--sin-stock-fondo); color: var(--sin-stock-texto); }
+
+.catalogo-marca .catalog-shelf > .empty-state {
+    margin: 0;
+    border: 1px dashed var(--borde);
+    border-radius: var(--radio-tarjeta, var(--radio-surface));
+    background: var(--superficie);
+    color: var(--texto);
+}
+
+.catalogo-marca .empty-state .btn {
+    background: var(--superficie);
+    border-color: var(--borde);
+    border-radius: var(--radio-control);
+    color: var(--texto);
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+}
+
+.catalogo-marca .empty-state .btn:hover { border-color: var(--principal); filter: none; }
+.catalogo-marca .footer { border-color: var(--borde); }
+
+/* Nintendo */
+.tema-nintendo {
+    --fondo: radial-gradient(circle at 2% 16%, #ffd9dd55, transparent 32%), #fff7f7;
+    --cabecera: #c70019;
+    --borde-cabecera: #a90016;
+    --texto-cabecera: #fff6f7;
+    --activo-cabecera: #fff;
+    --boton-cabecera: #fff;
+    --texto-boton-cabecera: #aa0017;
+    --texto: #32191e;
+    --secundario: #70474f;
+    --superficie: #fff;
+    --borde: #eac6cc;
+    --principal: #ba001b;
+    --sobre-principal: #fff;
+    --seleccion: #ffe0e5;
+    --fondo-catalogo: #fff0f2;
+    --visual: radial-gradient(#dfacb7 1px, transparent 1px) 0 0 / 12px 12px, #fff5f7;
+    --radio-control: 999px;
+    --radio-surface: 23px;
+    --radio-tarjeta: 17px;
+    --sombra-tarjeta: 0 8px 22px #6d1a2220;
+    --stock-fondo: #e1f1e5;
+    --stock-texto: #215637;
+    --sin-stock-fondo: #fde7e9;
+    --sin-stock-texto: #8c2834;
+}
+
+.tema-nintendo .store-product .product-visual { aspect-ratio: 4 / 3; }
+.tema-nintendo .product-bottom strong { color: var(--principal); }
+
+/* PlayStation */
+.tema-playstation {
+    --fondo: radial-gradient(ellipse at 62% 3%, #123b78 0, transparent 54%), #070d21;
+    --cabecera: #080f24;
+    --texto-cabecera: #ebf3ff;
+    --texto: #f0f5ff;
+    --secundario: #b2c7e8;
+    --superficie: #101e3b;
+    --borde: #345586;
+    --principal: #8bc8ff;
+    --sobre-principal: #072048;
+    --seleccion: #183e69;
+    --fondo-catalogo: linear-gradient(145deg, #10274d, #0a1430 74%);
+    --visual: radial-gradient(ellipse at 50% 85%, #407dc5, #0a1838 80%);
+    --radio-control: 999px;
+    --radio-surface: 10px;
+    --sombra-tarjeta: 0 10px 26px #04091094;
+    --stock-fondo: #16436c;
+    --stock-texto: #d7efff;
+    --sin-stock-fondo: #3c324b;
+    --sin-stock-texto: #ffdded;
+}
+
+.tema-playstation .workspace { display: block; max-width: 1260px; }
+.tema-playstation .sidebar { display: none; }
+.tema-playstation .brand-nav { justify-content: center; }
+.tema-playstation .store-product .product-visual { aspect-ratio: 16 / 9; }
+.tema-playstation .product-info { background: linear-gradient(155deg, #192f55, #101c36 72%); }
+
+/* Xbox */
+.tema-xbox {
+    --fondo: radial-gradient(ellipse at 77% 0, #213d25, transparent 55%), #0a130d;
+    --cabecera: #111a12;
+    --texto-cabecera: #edf8ee;
+    --texto: #eef7ed;
+    --secundario: #b4cdb4;
+    --superficie: #14241a;
+    --borde: #3b6143;
+    --principal: #99ec91;
+    --sobre-principal: #112510;
+    --seleccion: #233e28;
+    --fondo-catalogo: #0e1b12;
+    --fondo-input: #13281a;
+    --visual: repeating-linear-gradient(135deg, #8ace7818 0 1px, transparent 1px 16px), #1b3223;
+    --radio-control: 2px;
+    --radio-surface: 2px;
+    --stock-fondo: #25452b;
+    --stock-texto: #c6ffbc;
+    --sin-stock-fondo: #453c28;
+    --sin-stock-texto: #f7e5ad;
+}
+
+.tema-xbox .catalog-shelf { border-left: 4px solid #5bb653; }
+.tema-xbox .product-grid { grid-template-columns: minmax(0, 1fr); }
+.tema-xbox .store-product {
+    display: grid;
+    grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
+    align-items: stretch;
+}
+
+.tema-xbox .store-product .product-visual {
+    aspect-ratio: auto;
+    min-height: 135px;
+    border-right: 1px solid var(--borde);
+}
+
+.tema-xbox .product-info { align-content: center; }
+.tema-xbox .product-bottom strong { color: var(--principal); }
+
+@media (min-width: 1150px) {
+    .tema-xbox .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* NVIDIA */
+.tema-nvidia {
+    --fondo: repeating-linear-gradient(90deg, #bce7690b 0 1px, transparent 1px 36px),
+             repeating-linear-gradient(0deg, #bce7690b 0 1px, transparent 1px 36px), #10120e;
+    --cabecera: #0b0d09;
+    --texto-cabecera: #f3f6ee;
+    --texto: #f3f7e9;
+    --secundario: #bac3aa;
+    --superficie: #171c13;
+    --borde: #435135;
+    --principal: #bdeb56;
+    --sobre-principal: #182101;
+    --seleccion: #2b381c;
+    --fondo-catalogo: #12160e;
+    --visual: radial-gradient(ellipse, #3c492b, #171d12 80%);
+    --radio-control: 0;
+    --radio-surface: 0;
+    --stock-fondo: #313d19;
+    --stock-texto: #e2ffad;
+    --sin-stock-fondo: #443729;
+    --sin-stock-texto: #ffe6be;
+}
+
+.tema-nvidia .brand-nav {
+    --espacio-nav: 7px;
+    --fondo-nav: #0d110a;
+    border-bottom: 1px solid var(--borde);
+}
+
+.tema-nvidia .catalog-tools h2 { font-weight: 800; }
+.tema-nvidia .store-product { border-top: 2px solid #88ac3a; }
+.tema-nvidia .store-product .product-visual { aspect-ratio: 1; }
+.tema-nvidia .product-meta,
+.tema-nvidia .dual-price { font-family: "Consolas", "Courier New", monospace; }
+.tema-nvidia .product-bottom strong { color: var(--principal); }
+
+@media (max-width: 575px) {
+    .tema-playstation .brand-nav { justify-content: flex-start; }
+    .catalogo-marca .brand-nav a { padding-inline: 9px; }
+    .catalogo-marca .catalog-tools .search-box { max-width: none; }
+    .catalogo-marca .toplinks { gap: 12px; }
+}
+
+@media (max-width: 365px) {
+    .tema-xbox .store-product { grid-template-columns: minmax(0, 1fr); }
+    .tema-xbox .store-product .product-visual {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+        border-right: 0;
+        border-bottom: 1px solid var(--borde);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .catalogo-marca .store-product { transition: none; }
+    .catalogo-marca .store-product:hover { transform: none; }
+}
+
+/* Portadas y arte de las franquicias */
+.brand-hero {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(0, 1.55fr);
+    min-height: clamp(290px, 28vw, 400px);
+    margin-bottom: 14px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-surface);
+    background: var(--fondo-portada);
+    color: #fff;
+}
+
+.brand-copy {
+    align-content: center;
+    padding: clamp(20px, 3.1vw, 47px);
+}
+
+.brand-copy h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4.1vw, 4rem);
+    line-height: .98;
+    letter-spacing: -.065em;
+    overflow-wrap: anywhere;
+}
+
+.brand-copy p {
+    max-width: 30ch;
+    margin: 16px 0 23px;
+    color: var(--texto-portada, #fffd);
+    line-height: 1.45;
+}
+
+.brand-hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radio-control);
+    background: var(--boton-portada, var(--principal));
+    color: var(--texto-boton-portada, var(--sobre-principal));
+    font-size: .85rem;
+    font-weight: 750;
+}
+
+.brand-hero-link:hover {
+    filter: brightness(1.12);
+    color: var(--texto-boton-portada, var(--sobre-principal));
+}
+.brand-hero-link:focus-visible { outline-color: #fff; }
+
+.brand-scene {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    min-width: 0;
+    margin: 0;
+}
+
+.brand-scene > img, .brand-effect, .brand-scene::after {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.brand-scene > img {
+    object-fit: cover;
+    object-position: var(--encuadre-portada, center);
+}
+
+.brand-scene::after {
+    content: "";
+    background: var(--sombra-portada), linear-gradient(0deg, #080b12a6, transparent 33%);
+    pointer-events: none;
+}
+
+.brand-effect {
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.brand-effect::before, .brand-effect::after {
+    position: absolute;
+    content: "";
+    pointer-events: none;
+}
+
+.brand-scene figcaption {
+    position: relative;
+    z-index: 1;
+    justify-self: end;
+    min-width: 0;
+    margin: 12px;
+}
+
+.brand-scene figcaption a {
+    display: block;
+    padding: 7px 10px;
+    border: 1px solid #fff5;
+    border-radius: var(--radio-control);
+    background: #0a0e16e8;
+    color: #fff;
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.brand-scene figcaption a:hover { text-decoration: underline; }
+
+.brand-feature {
+    display: grid;
+    grid-template-columns: minmax(0, 230px) minmax(0, 1fr);
+    min-height: 104px;
+    margin: 0 0 20px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    border-radius: var(--radio-tarjeta, var(--radio-surface));
+    background: var(--fondo-catalogo, var(--superficie));
+}
+
+.brand-feature-art {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    background: var(--visual);
+}
+
+.brand-feature-art img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--encuadre-destacado, center);
+}
+
+.brand-feature figcaption {
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: 5px;
+    padding: 12px clamp(14px, 2.2vw, 24px);
+    overflow-wrap: anywhere;
+}
+
+.brand-feature strong { color: var(--texto); font-size: clamp(.94rem, 2vw, 1.18rem); line-height: 1.2; }
+.brand-feature a { color: var(--secundario); font-size: .77rem; text-decoration: underline; text-underline-offset: 3px; }
+.brand-feature a:hover { color: var(--texto); }
+
+.tema-nintendo {
+    --fondo-portada: linear-gradient(135deg, #bc001a, #e62033);
+    --texto-portada: #fff4f5;
+    --boton-portada: #fff;
+    --texto-boton-portada: #b00019;
+    --sombra-portada: linear-gradient(90deg, #b6001b4d, transparent 27%);
+    --encuadre-portada: 59% 52%;
+    --encuadre-destacado: center 42%;
+}
+
+.tema-nintendo .brand-hero { border-color: #df4050; }
+
+.tema-playstation {
+    --fondo-portada: linear-gradient(135deg, #08162e, #123f69);
+    --texto-portada: #dceeff;
+    --sombra-portada: linear-gradient(90deg, #123d6466, transparent 36%);
+    --encuadre-portada: center 56%;
+    --encuadre-destacado: 64% 36%;
+}
+
+.tema-playstation .brand-hero { border-bottom: 3px solid #69baff; }
+
+.tema-xbox {
+    --fondo-portada: radial-gradient(ellipse at 20% 95%, #223e23, #101d14 72%);
+    --texto-portada: #d6ecd7;
+    --sombra-portada: linear-gradient(94deg, #0f1d1466, transparent 36%);
+    --encuadre-portada: center 46%;
+    --encuadre-destacado: center 51%;
+}
+
+.tema-xbox .brand-scene { border-left: 1px solid #79bd7277; }
+.tema-xbox .brand-feature { border-left: 3px solid #67a963; }
+
+.tema-nvidia {
+    --fondo-portada: linear-gradient(128deg, #080c06, #15200e);
+    --texto-portada: #d3dfc4;
+    --sombra-portada: linear-gradient(90deg, #09100488, transparent 48%);
+    --encuadre-portada: 60% 49%;
+}
+
+.tema-nvidia .brand-copy h1 { color: var(--principal); font-weight: 850; }
+.tema-nvidia .brand-hero { border-top: 2px solid #8aba35; }
+.tema-nvidia .brand-feature { border-right: 3px solid #8aba35; }
+
+.tema-nvidia .brand-effect::before {
+    inset: 10px;
+    border-top: 1px solid #a6ec6973;
+    border-right: 1px solid #a6ec6973;
+    background:
+        linear-gradient(#a6ec69a6, #a6ec69a6) right 8px top 8px / 24px 1px no-repeat,
+        linear-gradient(#a6ec69a6, #a6ec69a6) right 8px top 8px / 1px 16px no-repeat;
+}
+
+.tema-nvidia .brand-effect::after {
+    inset: -20% auto -20% 0;
+    width: 20%;
+    background: linear-gradient(90deg, transparent, #b2ff6852, transparent);
+    transform: translateX(-140%) skewX(-22deg);
+    animation: barrido-nvidia 2.5s ease-out both;
+}
+
+@keyframes barrido-nvidia {
+    0% { transform: translateX(-140%) skewX(-22deg); opacity: 0; }
+    24% { opacity: .8; }
+    100% { transform: translateX(585%) skewX(-22deg); opacity: 0; }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .brand-scene > img, .brand-feature-art img { transition: transform .45s ease-out; }
+    .brand-scene:hover > img, .brand-feature:hover img { transform: scale(1.035); }
+}
+
+@media (max-width: 680px) {
+    .brand-hero { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+    .brand-copy { padding: 22px; }
+    .brand-copy p { margin: 12px 0 16px; }
+    .brand-scene { aspect-ratio: 16 / 9; }
+    .brand-feature { grid-template-columns: minmax(0, 38%) minmax(0, 1fr); }
+    .tema-xbox .brand-scene { border-left: 0; border-top: 1px solid #79bd7277; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .catalogo-marca .brand-effect::before, .catalogo-marca .brand-effect::after { animation: none; }
+}

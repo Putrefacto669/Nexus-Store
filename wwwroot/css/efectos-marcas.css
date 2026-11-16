@@ -1,0 +1,245 @@
+.brand-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-effect-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 38px;
+    padding: 7px 12px;
+    border: 1px solid #ffffff75;
+    border-radius: var(--radio-control);
+    background: #070d2440;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.brand-effect-button:hover { background: #071326a1; }
+.brand-effect-button:focus-visible { outline-color: #fff; }
+.brand-effect { z-index: 1; }
+.brand-scene figcaption { z-index: 2; }
+
+.mario-block {
+    display: grid;
+    width: 20px;
+    height: 20px;
+    place-items: center;
+    border: 1px solid #ffd465;
+    border-radius: 2px;
+    background: #f5aa18;
+    box-shadow: inset -2px -2px #a85312, inset 2px 2px #ffdd65, 1px 2px #360a10;
+    color: #492200;
+    font: 900 14px/1 "Consolas", monospace;
+}
+
+.mario-recompensa {
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 12px;
+    border: 2px solid #ffcf58;
+    border-radius: 12px;
+    background: #30130de8;
+    color: #fff4b0;
+    font: 900 1.4rem/1 "Consolas", monospace;
+    opacity: 0;
+}
+
+.mario-recompensa i {
+    display: inline-block;
+    width: 19px;
+    height: 26px;
+    border: 3px solid #ffe389;
+    border-radius: 50%;
+    background: #ffae29;
+    box-shadow: inset 0 0 0 2px #d07d12, 0 0 13px #ffc83e71;
+}
+
+.en-reproduccion .mario-recompensa { animation: moneda-mario 1.4s ease-out both; }
+
+@keyframes moneda-mario {
+    0% { opacity: 0; transform: translateY(20px) scale(.72); }
+    24% { opacity: 1; transform: translateY(-24px) scale(1.12); }
+    58% { opacity: 1; transform: translateY(-29px) scale(1); }
+    100% { opacity: 0; transform: translateY(-43px) scale(.96); }
+}
+
+.ps-simbolo {
+    position: absolute;
+    top: var(--simbolo-y);
+    left: var(--simbolo-x);
+    display: grid;
+    width: clamp(35px, 8vw, 72px);
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid currentColor;
+    border-radius: 22%;
+    background: #081429af;
+    color: var(--luz-simbolo);
+    font: 500 clamp(24px, 5.6vw, 53px)/1 "Segoe UI Symbol", "Segoe UI", sans-serif;
+    text-shadow: 0 0 12px currentColor;
+    box-shadow: inset 0 0 16px #a3c9ff38, 0 0 22px #7eaeff4a;
+    opacity: 0;
+}
+
+.ps-simbolo:nth-child(1) { --luz-simbolo: #8afcdb; --simbolo-x: 12%; --simbolo-y: 16%; --espera: 0ms; }
+.ps-simbolo:nth-child(2) { --luz-simbolo: #ffa6aa; --simbolo-x: 77%; --simbolo-y: 15%; --espera: 100ms; }
+.ps-simbolo:nth-child(3) { --luz-simbolo: #a9c5ff; --simbolo-x: 20%; --simbolo-y: 62%; --espera: 200ms; }
+.ps-simbolo:nth-child(4) { --luz-simbolo: #eeb6ff; --simbolo-x: 69%; --simbolo-y: 58%; --espera: 300ms; }
+.en-reproduccion .ps-simbolo { animation: simbolos-playstation 2.5s var(--espera) ease-out both; }
+
+@keyframes simbolos-playstation {
+    0% { opacity: 0; transform: translateY(18px) rotate(-12deg) scale(.7); }
+    32% { opacity: 1; transform: translateY(0) rotate(4deg) scale(1); }
+    72% { opacity: .86; }
+    100% { opacity: 0; transform: translateY(-14px) rotate(8deg) scale(1.09); }
+}
+
+.xbox-encendido {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: clamp(90px, 21vw, 208px);
+    aspect-ratio: 1;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid #b6ff8e;
+    border-radius: 50%;
+    background: radial-gradient(circle, #284e1b, #08150ae8 76%);
+    box-shadow: 0 0 24px #97fe6f8a, 0 0 75px #78ff6277;
+    opacity: 0;
+}
+
+.xbox-encendido img {
+    width: 90%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+}
+
+.xbox-encendido::before,
+.xbox-encendido::after {
+    position: absolute;
+    inset: -16%;
+    content: "";
+    border: 2px solid #adff78a6;
+    border-top-color: #e5ffc2;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    box-shadow: 0 0 18px #8aff5566;
+}
+
+.xbox-encendido::after {
+    inset: -28%;
+    border-right-color: transparent;
+    border-bottom-color: #9afa73a6;
+    border-left-color: transparent;
+}
+
+.en-reproduccion .xbox-encendido { animation: arranque-xbox 2.35s ease-out both; }
+.en-reproduccion .xbox-encendido::before { animation: orbita-xbox 1.45s ease-out both; }
+.en-reproduccion .xbox-encendido::after { animation: orbita-xbox 1.9s ease-out reverse both; }
+
+@keyframes arranque-xbox {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(.4); }
+    34% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    72% { opacity: .94; }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.12); }
+}
+
+@keyframes orbita-xbox {
+    from { transform: rotate(-145deg) scale(.72); }
+    to { transform: rotate(135deg) scale(1); }
+}
+
+.rtx-comparison { margin-bottom: 20px; }
+.rtx-comparison .brand-feature { margin-bottom: 0; list-style: none; cursor: pointer; }
+.rtx-comparison summary::-webkit-details-marker { display: none; }
+.rtx-comparison summary:hover { border-color: var(--principal); }
+
+.rtx-summary {
+    display: grid;
+    align-content: center;
+    gap: 5px;
+    min-width: 0;
+    padding: 12px clamp(14px, 2.2vw, 24px);
+}
+
+.rtx-summary > span {
+    color: var(--principal);
+    font-size: .82rem;
+    font-weight: 650;
+}
+
+.rtx-arrow { display: inline-block; margin-left: 3px; }
+.rtx-comparison[open] .rtx-arrow { transform: rotate(180deg); }
+
+.rtx-content {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    padding: clamp(10px, 2.5vw, 22px);
+    border: 1px solid var(--borde);
+    border-top: 0;
+    background: var(--superficie);
+}
+
+.rtx-stage {
+    --divisor: 50%;
+    position: relative;
+    isolation: isolate;
+    width: min(100%, 760px);
+    aspect-ratio: 760 / 428;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    background: #10150d;
+}
+
+.rtx-stage img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rtx-original { clip-path: inset(0 calc(100% - var(--divisor)) 0 0); }
+
+.rtx-divider {
+    position: absolute;
+    inset-block: 0;
+    left: var(--divisor);
+    width: 2px;
+    background: #f5ffe6;
+    box-shadow: 0 0 8px #000;
+    transform: translateX(-50%);
+}
+
+.rtx-stage[data-vista-rtx="on"] .rtx-divider,
+.rtx-stage[data-vista-rtx="off"] .rtx-divider { display: none; }
+
+.rtx-controls { display: grid; gap: 5px; width: min(100%, 760px); font-size: .86rem; }
+.rtx-controls input { padding: 0; accent-color: var(--principal); cursor: ew-resize; }
+.rtx-source { color: var(--secundario); text-decoration: underline; font-size: .8rem; }
+
+@media (prefers-reduced-motion: reduce) {
+    .en-reproduccion .mario-recompensa,
+    .en-reproduccion .ps-simbolo,
+    .en-reproduccion .xbox-encendido,
+    .en-reproduccion .xbox-encendido::before,
+    .en-reproduccion .xbox-encendido::after { animation: none; }
+
+    .en-reproduccion.efecto-activado .mario-recompensa,
+    .en-reproduccion.efecto-activado .ps-simbolo,
+    .en-reproduccion.efecto-activado .xbox-encendido { opacity: 1; }
+}

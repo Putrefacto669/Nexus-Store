@@ -1,0 +1,9 @@
+@model Producto
+@{ ViewData["Title"] = "Registrar producto"; }
+<div class="heading catalog-heading"><h1>Registrar producto</h1></div>
+<section class="panel product-form">
+    <form asp-action="Crear" method="post" enctype="multipart/form-data">
+        <partial name="_Formulario" model="Model" />
+    </form>
+</section>
+@section Scripts { <script src="~/js/precio.js" asp-append-version="true" defer></script> }

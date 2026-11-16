@@ -1,0 +1,59 @@
+@{ ViewData["Title"] = "Inicio"; var ultimas = (List<Venta>)ViewBag.Ultimas; }
+<section class="store-front">
+    <div class="store-front-copy">
+        <p class="eyebrow">NEXUS STORE</p>
+        <h1>Videojuegos,<br />consolas y software</h1>
+        <p>Explora el catálogo por marca y consulta precios y existencias.</p>
+        <a class="btn btn-primary" asp-controller="Productos" asp-action="Index">Explorar catálogo <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="store-front-art" aria-hidden="true"><span>◈</span></div>
+</section>
+<div class="section-heading"><h2>Explorar por marca</h2><a class="view-all" asp-controller="Productos" asp-action="Index">Ver todo el catálogo →</a></div>
+<div class="brand-directory">
+    @foreach (var marca in MarcaTienda.Todas)
+    {
+        <a class="brand-tile marca-@marca.Id" asp-controller="Productos" asp-action="Marca" asp-route-marca="@marca.Id">
+            @if (marca.Logo is { } logo)
+            {
+                <img src="@Url.Content("~/marcas/" + logo)" alt="" />
+            }
+            else
+            {
+                <div class="nintendo-type" aria-hidden="true"><span>Nintendo</span></div>
+            }
+            <div class="brand-tile-caption"><strong>@marca.Nombre</strong><span aria-hidden="true">↗</span></div>
+        </a>
+    }
+</div>
+<div class="section-heading"><h2>Resumen de actividad</h2></div>
+<div class="stats">
+    <div class="stat"><div class="stat-head"><span>PRODUCTOS</span></div><strong>@ViewBag.Productos</strong><small>En el catálogo</small><div class="stat-bar"></div></div>
+    <div class="stat"><div class="stat-head"><span>STOCK DISPONIBLE</span></div><strong>@ViewBag.Stock</strong><small>Unidades a la venta</small><div class="stat-bar"></div></div>
+    <div class="stat"><div class="stat-head"><span>VENTAS</span></div><strong>@ViewBag.Ventas</strong><small>Transacciones registradas</small><div class="stat-bar"></div></div>
+    <div class="stat featured"><div class="stat-head"><span>INGRESOS</span></div><strong>@Monedas.Cordobas((decimal)ViewBag.Ingresos)</strong><small>@ViewBag.IngresosUsd</small><div class="stat-bar"></div></div>
+</div>
+<div class="section-heading"><h2>Últimas transacciones</h2><a class="view-all" asp-controller="Ventas" asp-action="Index">Ver historial →</a></div>
+<section class="panel history-panel">
+    @if (ultimas.Count == 0)
+    {
+        <div class="empty-state"><strong>Todavía no hay ventas</strong><a class="btn btn-outline" asp-controller="Ventas" asp-action="Crear">Registrar primera venta</a></div>
+    }
+    else
+    {
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Operación</th><th>Cliente</th><th>Fecha</th><th>Importe</th><th></th></tr></thead>
+                <tbody>
+                @foreach (var v in ultimas)
+                {
+                    <tr>
+                        <td class="bold">#@v.Id.ToString("D4")</td><td>@v.Cliente</td><td>@v.FechaUtc.ToLocalTime().ToString("dd/MM/yyyy · HH:mm")</td>
+                        <td class="price-text"><div class="dual-price">@Monedas.Cordobas(v.Total)<small>@Monedas.Dolares(v.Total, v.CordobasPorDolar)</small></div></td>
+                        <td><a asp-controller="Ventas" asp-action="Detalle" asp-route-id="@v.Id">Ver detalle →</a></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

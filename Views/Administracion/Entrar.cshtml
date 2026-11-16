@@ -1,0 +1,14 @@
+@model AccesoAdministrador
+@{ ViewData["Title"] = "Acceso de administrador"; }
+<div class="heading catalog-heading">
+    <div><h1>Acceso de administrador</h1><p>Inicia sesión para registrar y editar productos.</p></div>
+</div>
+<section class="panel login-panel">
+    <form asp-action="Entrar" method="post">
+        <input asp-for="ReturnUrl" type="hidden" />
+        <div asp-validation-summary="All" class="validation"></div>
+        <div class="field"><label asp-for="Usuario">Usuario</label><input asp-for="Usuario" autocomplete="username" required /></div>
+        <div class="field"><label asp-for="Contrasena">Contraseña</label><input asp-for="Contrasena" autocomplete="current-password" required /></div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+</section>

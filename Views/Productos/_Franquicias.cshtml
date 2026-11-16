@@ -1,0 +1,71 @@
+@model MarcaTienda
+@{
+    var portada = Model.Portada;
+    var destacado = Model.Destacado;
+    var imagenPortada = Url.Content($"~/img/franquicias/{portada.Archivo}");
+    var accionEfecto = Model.Id switch
+    {
+        "nintendo" => "Golpear bloque",
+        "playstation" => "Activar símbolos",
+        "xbox" => "Encender Xbox",
+        _ => null
+    };
+}
+<header class="brand-hero">
+    <div class="brand-copy">
+        <h1>@Model.Nombre</h1>
+        <p>@Model.Descripcion</p>
+        <div class="brand-hero-actions">
+            <a href="#productos" class="brand-hero-link">Ver productos <span aria-hidden="true">↓</span></a>
+            @if (accionEfecto != null)
+            {
+                <button class="brand-effect-button" type="button" data-reproducir-efecto hidden>
+                    @if (Model.Id == "nintendo") { <span class="mario-block" aria-hidden="true">?</span> }
+                    @accionEfecto
+                </button>
+            }
+        </div>
+    </div>
+    <figure class="brand-scene">
+        <img src="@(imagenPortada).webp"
+             srcset="@($"{imagenPortada}-720.webp 720w, {imagenPortada}.webp 1440w")"
+             sizes="(max-width: 680px) 100vw, (max-width: 850px) 62vw, 720px"
+             alt="@portada.Alternativo" width="1440" height="810" fetchpriority="high" />
+        <div class="brand-effect @(accionEfecto != null ? "en-reproduccion" : null)" data-efecto-marca aria-hidden="true">
+            @switch (Model.Id)
+            {
+                case "nintendo":
+                    <span class="mario-recompensa"><i></i>+1</span>
+                    break;
+                case "playstation":
+                    <span class="ps-simbolo">△</span>
+                    <span class="ps-simbolo">○</span>
+                    <span class="ps-simbolo">×</span>
+                    <span class="ps-simbolo">□</span>
+                    break;
+                case "xbox":
+                    <span class="xbox-encendido">
+                        <img src="@Url.Content("~/marcas/" + Model.Logo)" alt="" />
+                    </span>
+                    break;
+            }
+        </div>
+        <figcaption><a href="@portada.Fuente" title="Arte de @portada.Credito">@portada.Titulo <span aria-hidden="true">↗</span></a></figcaption>
+    </figure>
+</header>
+@if (Model.Id == "nvidia")
+{
+    <partial name="_ComparacionRtx" model="destacado" />
+}
+else
+{
+    <figure class="brand-feature">
+        <div class="brand-feature-art">
+            <img src="@Url.Content($"~/img/franquicias/{destacado.Archivo}.webp")" alt="@destacado.Alternativo" decoding="async" />
+        </div>
+        <figcaption>
+            <strong>@destacado.Titulo</strong>
+            <a href="@destacado.Fuente">Arte de @destacado.Credito <span aria-hidden="true">↗</span></a>
+        </figcaption>
+    </figure>
+}
