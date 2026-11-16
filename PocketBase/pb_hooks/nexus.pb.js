@@ -1,0 +1,9 @@
+routerAdd("GET", "/api/nexus/estado", (e) => require(__hooks + "/nexus.js").estado(e));
+routerAdd("POST", "/api/nexus/importar", (e) => require(__hooks + "/nexus.js").importar(e), $apis.bodyLimit(128 * 1024 * 1024));
+routerAdd("GET", "/api/nexus/productos", (e) => require(__hooks + "/nexus.js").productos(e));
+routerAdd("POST", "/api/nexus/productos", (e) => require(__hooks + "/nexus.js").guardarProducto(e));
+routerAdd("PUT", "/api/nexus/productos/{numero}", (e) => require(__hooks + "/nexus.js").guardarProducto(e));
+routerAdd("DELETE", "/api/nexus/productos/{numero}", (e) => require(__hooks + "/nexus.js").borrarProducto(e));
+routerAdd("GET", "/api/nexus/fotos/{nombre}", (e) => require(__hooks + "/nexus.js").foto(e));
+routerAdd("GET", "/api/nexus/ventas", (e) => require(__hooks + "/nexus.js").ventas(e));
+routerAdd("POST", "/api/nexus/ventas", (e) => require(__hooks + "/nexus.js").registrarVenta(e));

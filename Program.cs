@@ -4,7 +4,16 @@ using VentasMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<AlmacenJson>();
+builder.Services.AddHttpClient<AlmacenPocketBase>((servicios, cliente) =>
+{
+    var configuracion = servicios.GetRequiredService<IConfiguration>();
+    var url = configuracion["PocketBase:Url"] ?? "http://127.0.0.1:8090";
+    var clave = configuracion["PocketBase:Clave"];
+    if (string.IsNullOrWhiteSpace(clave))
+        throw new InvalidOperationException("Configura PocketBase:Clave según el README.");
+    cliente.BaseAddress = new Uri(url.TrimEnd('/') + "/api/nexus/");
+    cliente.DefaultRequestHeaders.Add("X-Nexus-Key", clave);
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = false });
 builder.Services.AddSingleton<Monedas>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opciones =>
@@ -37,4 +46,5 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+await app.Services.GetRequiredService<AlmacenPocketBase>().ImportarDatosAnteriores();
 app.Run();

@@ -1,5 +1,5 @@
 bin/
 obj/
 .vs/
-Data/*.tmp
-Data/fotos/
+/Data/
+pb_data/

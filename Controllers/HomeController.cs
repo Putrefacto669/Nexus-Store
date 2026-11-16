@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VentasMVC.Services;
 namespace VentasMVC.Controllers;
-public class HomeController(AlmacenJson almacen, Monedas monedas) : Controller
+public class HomeController(AlmacenPocketBase almacen, Monedas monedas) : Controller
 {
     public async Task<IActionResult> Index()
     {

@@ -6,7 +6,7 @@ using VentasMVC.Services;
 namespace VentasMVC.Controllers;
 
 [Authorize(Roles = "Administrador")]
-public class ProductosController(AlmacenJson almacen) : Controller
+public class ProductosController(AlmacenPocketBase almacen) : Controller
 {
     private const int MaximoFoto = 3 * 1024 * 1024;
 
@@ -25,24 +25,17 @@ public class ProductosController(AlmacenJson almacen) : Controller
     }
 
     [AllowAnonymous, HttpGet("fotos/productos/{nombre}")]
-    public IActionResult Foto(string nombre)
+    public async Task<IActionResult> Foto(string nombre)
     {
-        var extension = Path.GetExtension(nombre);
-        var tipo = extension switch
-        {
-            ".jpg" => "image/jpeg",
-            ".png" => "image/png",
-            ".webp" => "image/webp",
-            _ => null
-        };
-        if (tipo == null || !Guid.TryParseExact(nombre[..^extension.Length], "N", out _))
-            return NotFound();
+        var tipo = AlmacenPocketBase.TipoFoto(nombre);
+        if (tipo == null) return NotFound();
 
-        var ruta = Path.Combine(almacen.DirectorioFotos, nombre);
-        if (!System.IO.File.Exists(ruta)) return NotFound();
+        var foto = await almacen.LeerFoto(nombre);
+        if (foto == null) return NotFound();
+
         Response.Headers["X-Content-Type-Options"] = "nosniff";
         Response.Headers.CacheControl = "public, max-age=86400";
-        return PhysicalFile(ruta, tipo);
+        return File(foto, tipo);
     }
 
     [HttpGet]

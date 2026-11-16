@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using VentasMVC.Models;
 using VentasMVC.Services;
 namespace VentasMVC.Controllers;
-public class VentasController(AlmacenJson almacen) : Controller
+public class VentasController(AlmacenPocketBase almacen) : Controller
 {
     public async Task<IActionResult> Index() => View((await almacen.Ventas()).OrderByDescending(v => v.Id).ToList());
     public async Task<IActionResult> Crear()
